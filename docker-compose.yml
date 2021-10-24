@@ -1,0 +1,37 @@
+version: '3'
+services:
+    web:
+        container_name: php-apache
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        depends_on:
+            - mysqldb
+        volumes:
+            - ./src:/var/www/html/
+        ports:
+            - 8000:80
+    myadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        ports:
+            - "8080:80"
+        environment:
+            - PMA_ARBITRARY=1
+            - PMA_HOST=${DB_HOST}
+        restart: always
+        depends_on:
+            - mysqldb
+    mysqldb:
+        image: mysql:latest
+        container_name: ${DB_HOST}
+        restart: always
+        env_file:
+            - ".env"
+        environment:
+            - MYSQL_DATABASE=${DB_DATABASE}
+            - MYSQL_ROOT_PASSWORD=${DB_ROOT_USER}
+        ports:
+            - "3306:3306"
+        volumes:
+            - "./data/db/mysql:/var/lib/mysql"
