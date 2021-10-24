@@ -1,0 +1,17 @@
+{
+    "name": "irfan/detikcom",
+    "autoload": {
+        "psr-4": {
+            "Src\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Irfan Fakri Ardian",
+            "email": "mazbro9988@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.3"
+    }
+}
